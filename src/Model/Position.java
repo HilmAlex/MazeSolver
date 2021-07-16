@@ -1,3 +1,5 @@
+package Model;
+
 public class Position {
     private int row;
     private int column;
@@ -14,4 +16,5 @@ public class Position {
     public int getColumn() {
         return column;
     }
+
 }

@@ -1,3 +1,5 @@
+package Model;
+
 public class MazeSolver {
 
     private Pile path;
@@ -8,11 +10,9 @@ public class MazeSolver {
         this.maze = maze;
     }
 
-    /**
-     * 0 = wall
-     * 1 = path
-     * 2 = destination
-     */
+    public void showPath() {
+        this.path.showPileAsArray(maze.rowsNumber(), maze.columnsNumber());
+    }
 
     public boolean isIndexValid(int row, int column) {
         if (row < 0 ||
@@ -49,6 +49,7 @@ public class MazeSolver {
 
                 if (value == 2) {
                     System.out.println("Moved Up, You Win");
+                    path.push(new Position(temp, column));
                     return;
                 } else if (value == 1) {
                     System.out.println("Moved Up");
@@ -64,6 +65,7 @@ public class MazeSolver {
 
                 if (value == 2) {
                     System.out.println("Moved Down, You Win");
+                    path.push(new Position(temp, column));
                     return;
                 } else if (value == 1) {
                     System.out.println("Moved Down");
@@ -79,6 +81,7 @@ public class MazeSolver {
 
                 if (value == 2) {
                     System.out.println("Moved Left, You Win");
+                    path.push(new Position(row, temp));
                     return;
                 } else if (value == 1) {
                     System.out.println("Moved Left");
@@ -87,6 +90,7 @@ public class MazeSolver {
                 }
             }
 
+            //Up Down Left Right
 
             // Right
             temp = column + 1;
@@ -95,6 +99,7 @@ public class MazeSolver {
 
                 if (value == 2) {
                     System.out.println("Moved Right, You Win");
+                    path.push(new Position(row, temp));
                     return;
                 } else if (value == 1) {
                     System.out.println("Moved Right");

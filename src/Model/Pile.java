@@ -1,10 +1,13 @@
+package Model;
+
+import Interface.IArrays;
+
 import java.util.Optional;
 
-
-public class Pile {
+public class Pile implements IArrays {
     /**
-     @param end Ultimo nodo de la pila.
-     @param size Tamaño de la pila.
+     * @param end Ultimo nodo de la pila.
+     * @param size Tamaño de la pila.
      */
     Node end;
     int size;
@@ -24,6 +27,14 @@ public class Pile {
         public Node(Object object) {
             this.element = object;
             next = null;
+        }
+
+        public Object getElement() {
+            return this.element;
+        }
+
+        public Node getNext() {
+            return next;
         }
     }
 
@@ -56,6 +67,7 @@ public class Pile {
 
     /**
      * El metodo pop() elimina y devuelve el ultimo elemento de la pila.
+     *
      * @return Objeto de la pila eliminado.
      */
     public Object pop() {
@@ -71,6 +83,7 @@ public class Pile {
 
     /**
      * El metodo peek() devuelve el ultimo elemento de la pila sin eliminarlo.
+     *
      * @return Ultimo objeto de la pila.
      */
     public Object peek() {
@@ -80,6 +93,35 @@ public class Pile {
             Object object = end.element;
             return object;
         }
+    }
+
+    public void showPileAsArray(int rowsNumber, int columnsNumber) {
+        int[][] array = getPileAsArray(rowsNumber, columnsNumber);
+        IArrays.printArray(array);
+    }
+
+    public int[][] getPileAsArray(int rowsNumber, int columnsNumber) {
+        Optional<Node> tempNode;
+        Position tempPosition;
+
+        int[][] pileAsArray;
+
+        pileAsArray = new int[rowsNumber][columnsNumber];
+
+        IArrays.fillArray(pileAsArray, rowsNumber, columnsNumber);
+
+        //El nodo temporal toma el valor del ultimo nodo en la pila
+        tempNode = Optional.ofNullable(this.end);
+
+        while (tempNode.isPresent()) {
+            // La posicion temporal toma el obejeto Model.Position del nodo temporal
+            tempPosition = (Position) tempNode.get().getElement();
+
+            pileAsArray[tempPosition.getRow()][tempPosition.getColumn()] = 1;
+            tempNode = Optional.ofNullable(tempNode.get().getNext());
+        }
+
+        return pileAsArray;
     }
 
     public Boolean isEmpty() {
@@ -98,7 +140,7 @@ public class Pile {
         }
     }
 
-    public Object getEnd(){
+    public Object getEnd() {
         return end.element;
     }
 }
